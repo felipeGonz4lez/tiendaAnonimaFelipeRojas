@@ -72,6 +72,8 @@ require ("logica/Marca.php");
                         $producto = new Producto();
                         $productos = $producto->consultarTodos();
                         foreach ($productos as $productoActual) {
+                            
+                            
                             if($i%4 == 0){
                                 echo "<div class='row mb-3'>";
                             }
@@ -82,6 +84,10 @@ require ("logica/Marca.php");
                             echo "<a href='#'>" . $productoActual->getNombre() . "</a><br>";
                             echo "Cantidad: " . $productoActual->getCantidad() . "<br>";
                             echo "Valor: $" . $productoActual->getPrecioVenta();
+                            
+                            echo "<p>Marca: " . $productoActual->getMarca()->getNombre() . "</p>";
+                            echo "<p>Categoría: " . $productoActual->getCategoria()->getNombre() . "</p>";
+                            
                             echo "</div>";
                             echo "</div>";
                             echo "</div>";

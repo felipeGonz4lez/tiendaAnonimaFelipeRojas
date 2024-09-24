@@ -15,9 +15,10 @@ class ProductoDAO{
     }
     
     public function consultarTodos(){
-        return "select idProducto, nombre, cantidad, precioCompra, precioVenta 
-                from Producto";
+        return "select idProducto, nombre, cantidad, precioCompra, precioVenta, Marca_idMarca, Categoria_idCategoria
+            from Producto";
     }
+    
     
     
 }
