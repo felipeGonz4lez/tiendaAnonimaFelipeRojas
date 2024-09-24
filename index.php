@@ -65,7 +65,7 @@ require ("logica/Marca.php");
 		<div class="row mb-3">
 			<div class="col">
 				<div class="card border-primary">
-					<div class="card-header text-bg-info">Tienda Anonima</div>
+					<div class="card-header text-bg-info">Tienda Anonima Felipe Rojas</div>
 					<div class="card-body">
     					<?php
     					$i=0;
