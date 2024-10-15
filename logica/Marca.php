@@ -41,18 +41,15 @@ class Marca{
         return $marcas;        
     }
     
-    public function consultarMarcaPorId($idMarca){
+    public function consultar(){
         $conexion = new Conexion();
         $conexion -> abrirConexion();
-        $marcaDAO = new MarcaDAO();
-        $consulta = "SELECT * FROM Marca WHERE idMarca = " . $idMarca;
-        $conexion -> ejecutarConsulta($consulta);
+        $marcaDAO = new MarcaDAO($this -> idMarca);
+        $conexion -> ejecutarConsulta($marcaDAO -> consultar());
         $registro = $conexion -> siguienteRegistro();
+        $this -> nombre = $registro[0];
         $conexion -> cerrarConexion();
-        
-        return new Marca($registro[0], $registro[1]);
-    }
-    
+    }    
 }
 
 ?>

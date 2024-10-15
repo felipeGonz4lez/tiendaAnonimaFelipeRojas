@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(isset($_GET["cerrarSesion"])){
+    session_destroy();
+}
 require ("logica/Producto.php");
 require ("logica/Categoria.php");
 require ("logica/Marca.php");
@@ -12,13 +16,7 @@ require ("logica/Marca.php");
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col text-center mt-2">
-				<img src="img/logo.png" height="150" />
-			</div>
-		</div>
-	</div>
+	<?php include ("encabezado.php");?>
 
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container">
@@ -35,28 +33,32 @@ require ("logica/Marca.php");
 						href="#" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false">Marca</a>
 						<ul class="dropdown-menu">
-                            <?php 
+                            <?php
                             $marca = new Marca();
-                            $marcas = $marca -> consultarTodos();
+                            $marcas = $marca->consultarTodos();
                             foreach ($marcas as $marcaActual) {
-                                echo "<li><a class='dropdown-item' href='#'>" . $marcaActual -> getNombre() . "</a></li>"; 
+                                echo "<li><a class='dropdown-item' href='#'>" . $marcaActual->getNombre() . "</a></li>";
+                            }
+                            ?>
+						</ul></li>
+				</ul>
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+						href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false">Categoria</a>
+						<ul class="dropdown-menu">
+                            <?php
+                            $categoria = new Categoria();
+                            $categorias = $categoria->consultarTodos();
+                            foreach ($categorias as $categoriaActual) {
+                                echo "<li><a class='dropdown-item' href='#'>" . $categoriaActual->getNombre() . "</a></li>";
                             }
                             ?>
 						</ul></li>
 				</ul>
 				<ul class="navbar-nav">
-					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
-						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false">Categoria</a>
-						<ul class="dropdown-menu">
-                            <?php 
-                            $categoria = new Categoria();
-                            $categorias = $categoria -> consultarTodos();
-                            foreach ($categorias as $categoriaActual) {
-                                echo "<li><a class='dropdown-item' href='#'>" . $categoriaActual -> getNombre() . "</a></li>"; 
-                            }
-                            ?>
-						</ul></li>
+				<li class="nav-item"><a href="iniciarSesion.php" class="nav-link"
+					aria-disabled="true">Iniciar Sesion</a></li>
 				</ul>
 			</div>
 		</div>
@@ -65,16 +67,16 @@ require ("logica/Marca.php");
 		<div class="row mb-3">
 			<div class="col">
 				<div class="card border-primary">
-					<div class="card-header text-bg-info">Tienda Anonima Felipe Rojas</div>
+					<div class="card-header text-bg-info">
+						<h4>Tienda Anonima</h4>
+					</div>
 					<div class="card-body">
     					<?php
-    					$i=0;
+                        $i = 0;
                         $producto = new Producto();
                         $productos = $producto->consultarTodos();
                         foreach ($productos as $productoActual) {
-                            
-                            
-                            if($i%4 == 0){
+                            if ($i % 4 == 0) {
                                 echo "<div class='row mb-3'>";
                             }
                             echo "<div class='col-lg-3 col-md-4 col-sm-6' >";
@@ -83,21 +85,18 @@ require ("logica/Marca.php");
                             echo "<div class='text-center'><img src='https://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/256/faq-icon.png' width='70%' /></div>";
                             echo "<a href='#'>" . $productoActual->getNombre() . "</a><br>";
                             echo "Cantidad: " . $productoActual->getCantidad() . "<br>";
-                            echo "Valor: $" . $productoActual->getPrecioVenta();
-                            
-                            echo "<p>Marca: " . $productoActual->getMarca()->getNombre() . "</p>";
-                            echo "<p>Categoría: " . $productoActual->getCategoria()->getNombre() . "</p>";
-                            
+                            echo "Valor: $" . $productoActual->getPrecioVenta() . "<br>";
+                            echo "Marca: " . $productoActual->getMarca()->getNombre() . "<br>";
                             echo "</div>";
                             echo "</div>";
                             echo "</div>";
-                            
-                            if($i%4 == 3){
+                
+                            if ($i % 4 == 3) {
                                 echo "</div>";
                             }
-                            $i++;
+                            $i ++;
                         }
-                        if($i%4 != 0){
+                        if ($i % 4 != 0) {
                             echo "</div>";
                         }
                         ?>

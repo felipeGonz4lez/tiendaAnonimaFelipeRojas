@@ -13,6 +13,12 @@ class MarcaDAO{
                 from Marca
                 order by nombre asc";
     }
+    
+    public function consultar(){
+        return "select nombre 
+                from Marca
+                where idMarca = '" . $this -> idMarca . "'";
+    }
 }
 
 ?>
