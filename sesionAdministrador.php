@@ -35,7 +35,7 @@ $administrador -> consultar();
 						href="#" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false">Producto</a>
 						<ul class="dropdown-menu">
-                            <li><a class='dropdown-item' href='#'>Nuevo Producto</a></li>
+                            <li><a class='dropdown-item' href='nuevoProducto.php'>Nuevo Producto</a></li>
 						</ul></li>
 				</ul>
 				<ul class="navbar-nav">
