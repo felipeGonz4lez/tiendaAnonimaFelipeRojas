@@ -4,17 +4,17 @@ if(!isset($_SESSION["id"])){
     header("Location: iniciarSesion.php");
 }
 $id = $_SESSION["id"];
-require ("logica/Persona.php");
-require ("logica/Administrador.php");
+require_once ("logica/Persona.php");
+require_once ("logica/Administrador.php");
 
 $administrador = new Administrador($id);
 $administrador->consultar();
 
 require_once ("logica/Producto.php");
-require_once ("persistencia/Conexion.php"); // Asegúrate de incluir la conexión
+require_once ("persistencia/Conexion.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Procesar el formulario
+   
     $nombre = $_POST['nombre'];
     $cantidad = $_POST['cantidad'];
     $precioCompra = $_POST['precioCompra'];
@@ -22,21 +22,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $marcaId = $_POST['marca'];
     $categoriaId = $_POST['categoria'];
     
-    // Crear conexión
+   
     $conexion = new Conexion();
     $conexion->abrirConexion();
     
-    // Consulta para insertar el producto
+    
     $query = "INSERT INTO Producto (nombre, cantidad, precioCompra, precioVenta, Marca_idMarca, Categoria_idCategoria, Administrador_idAdministrador)
               VALUES ('$nombre', $cantidad, $precioCompra, $precioVenta, $marcaId, $categoriaId, $id)";
     
-    if ($conexion->ejecutarConsulta($query)) {
+    // Para ejecutar la consulta y verificar si se insertó correctamente
+    $conexion->ejecutarConsulta($query);
+    if ($conexion->obtenerLlaveAutonumerica() > 0) {
         echo "<div class='alert alert-success'>Producto agregado con éxito.</div>";
     } else {
         echo "<div class='alert alert-danger'>Error al agregar el producto.</div>";
     }
     
-    $conexion->cerrarConexion(); // Cierra la conexión
+    $conexion->cerrarConexion();
 }
 ?>
 
